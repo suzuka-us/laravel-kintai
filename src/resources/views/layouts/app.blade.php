@@ -30,14 +30,6 @@
                     <img src="{{ asset('images/coachtech.png') }}" alt="ロゴ">
                 </a>
 
-                <form action="{{ route('products.index') }}" method="GET" class="header-search">
-                    <input
-                        type="text"
-                        name="keyword"
-                        class="header-search-input"
-                        placeholder="何をお探しですか？"
-                        value="{{ request('keyword') }}">
-                </form>
 
                 <nav>
                     <ul class="header-nav">
