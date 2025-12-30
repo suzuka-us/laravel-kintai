@@ -16,3 +16,4 @@ https://github.com/suzuka-us/laravel-kintai
 phpmyadmin:http://localhost:8080
 
 ＃＃ER図
+![alt text](kintai.png)
