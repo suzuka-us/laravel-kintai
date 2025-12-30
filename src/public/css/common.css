@@ -4,8 +4,8 @@
 
 .header__inner {
     margin: 0 auto;
-    padding: 20px 15px;
-    max-width: 1230px;
+    padding: 3px 80px;
+    max-width: 1512px;
 }
 
 .header-utilities {
@@ -18,7 +18,8 @@
     color: #fff;
     text-decoration: none;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 25px;
+    width: 13rem;
 }
 
 .header-utilities nav {
@@ -42,4 +43,9 @@
     color: #fff;
     font-size: 16px;
     cursor: pointer;
+}
+
+.header__logo img {
+    height: 24px;
+    width: auto;
 }
