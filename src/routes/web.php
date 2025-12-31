@@ -19,3 +19,4 @@ Route::get('/', [TestController::class, 'index']);
 Route::middleware('auth')->group(function () {
 
  });
+
