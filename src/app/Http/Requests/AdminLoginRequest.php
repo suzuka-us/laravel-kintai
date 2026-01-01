@@ -4,14 +4,16 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class AdminLoginRequest extends FormRequest
 {
-    public function authorize()
+    // 認可（今回は必ず true）
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    // バリデーションルール
+    public function rules(): array
     {
         return [
             'email' => 'required|email',
@@ -19,7 +21,8 @@ class LoginRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    // エラーメッセージ（指定された文言）
+    public function messages(): array
     {
         return [
             'email.required' => 'メールアドレスを入力してください',

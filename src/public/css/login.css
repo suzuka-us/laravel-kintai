@@ -9,17 +9,28 @@
     text-align: center;
 }
 
+
 .form {
+    max-width: 600px;
+    /* ← フォーム全体の幅 */
     margin: 0 auto;
+}
+
+/* タイトル */
+.form h1 {
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .form__group {
-    margin-bottom: 5px;
+    margin-bottom: 40px;
+    /* 余白 */
 }
 
 .form__group-title {
     text-align: left;
+    margin-bottom: 5px;
+    
 }
 
 .form__error {
@@ -28,13 +39,17 @@
     text-align: left;
 }
 
+.form__input--text {
+    width: 100%;
+   
+}
+
 .form__input--text input {
     padding: 10px;
     width: 100%;
     height: 40px;
     border: 1px solid #ddd;
     border-radius: 3px;
-
     appearance: none;
 }
 
@@ -58,8 +73,9 @@
     text-align: center;
 }
 
-.form {
-    max-width: 600px;
-    /* ← 幅を細くする */
-    margin: 0 auto;
+.form__group label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
 }
+
