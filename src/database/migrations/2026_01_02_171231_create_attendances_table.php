@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');       // FK
+            $table->date('work_date');
+            $table->time('clock_in')->nullable();
+            $table->time('clock_out')->nullable();
+            $table->string('status');           // 勤務外 / 出勤中 / 休憩中 / 退勤済
+            $table->text('remark')->nullable();
             $table->timestamps();
         });
     }

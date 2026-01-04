@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('attendance_correction_requests', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('attendance_id');
+            $table->foreignId('user_id');
+            $table->string('status'); // 承認待ち / 承認済み
             $table->timestamps();
         });
     }

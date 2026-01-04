@@ -45,8 +45,10 @@ Route::get('/dashboard', function () {
 });
 
 // 勤怠登録画面
-Route::get('/login', [LoginController::class, 'create'])->name('login');
-Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/attendance', [AttendanceController::class, 'index']);
+Route::post('/attendance/clock-in', [AttendanceController::class, 'clockIn'])
+    ->name('attendance.clockIn');
+Route::post('/attendance/clock-out', [AttendanceController::class, 'clockOut'])
+    ->name('attendance.clockOut');
 
-Route::get('/attendance', [AttendanceController::class, 'index'])
-    ->middleware('auth'); // ログイン必須
+    
