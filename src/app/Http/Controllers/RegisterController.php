@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -14,7 +16,12 @@ class RegisterController extends Controller
 
     public function store(RegisterRequest $request)
     {
-        // ここでは登録処理を書く
+        User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        // 登録処理
         return redirect('/login');
     }
 }

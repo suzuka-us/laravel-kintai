@@ -7,6 +7,11 @@ use App\Models\Attendance;
 
 class AttendanceController extends Controller
 {
+    public function __construct()
+    {
+        // ★ これを必ず追加
+        $this->middleware('auth');
+    }
     /**
      * 勤怠打刻画面表示
      */
@@ -22,7 +27,7 @@ class AttendanceController extends Controller
             $status = $attendance->status;
         }
 
-        return view('layouts.index', [
+        return view('attendance.index', [
             'status' => $status,
             'attendance' => $attendance,
         ]);
@@ -60,3 +65,4 @@ class AttendanceController extends Controller
         return back()->with('message', 'お疲れ様でした。');
     }
 }
+

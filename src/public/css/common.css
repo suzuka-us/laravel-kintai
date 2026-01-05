@@ -23,13 +23,15 @@
 }
 
 .header-utilities nav {
-    width: 18%;
+    width: auto;
 }
 
 .header-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 32px;
+
 }
 
 .header-nav__link {
@@ -49,3 +51,4 @@
     height: 24px;
     width: auto;
 }
+

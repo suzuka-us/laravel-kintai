@@ -35,26 +35,28 @@
                     <ul class="header-nav">
                         @if (Auth::check())
 
-                        <!-- ログアウト -->
+                        {{-- 勤怠 --}}
+                        <li class="header-nav__item">
+                            <a class="header-nav__link" href="/attendance">勤怠</a>
+                        </li>
+
+                        {{-- 勤怠一覧 --}}
+                        <li class="header-nav__item">
+                            <a class="header-nav__link" href="/attendance/list">勤怠一覧</a>
+                        </li>
+
+                        {{-- 申請 --}}
+                        <li class="header-nav__item">
+                            <a class="header-nav__link" href="/stamp_correction_request/list">申請</a>
+                        </li>
+
+                        {{-- ログアウト --}}
                         <li class="header-nav__item">
                             <form action="/logout" method="post" class="header-nav__form">
                                 @csrf
                                 <button class="header-nav__button">ログアウト</button>
                             </form>
                         </li>
-
-                        <!-- マイページ -->
-                        <li class="header-nav__item">
-                            <a class="header-nav__link" href="/mypage/profile">マイページ</a>
-                        </li>
-
-                        <!-- 出品 -->
-                        <li class="header-nav__item">
-                            <a class="header-nav__link header-nav__link--sell" href="/sell">出品</a>
-
-                        </li>
-
-
 
                         @endif
                     </ul>
