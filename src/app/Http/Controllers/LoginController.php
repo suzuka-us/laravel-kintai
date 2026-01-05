@@ -20,6 +20,10 @@ class LoginController extends Controller
             ]);
         }
 
-        return redirect('/home');
+        // ★ これが超重要（これが無いとログイン状態にならない）
+        $request->session()->regenerate();
+
+        // ★ 勤怠登録画面へ
+        return redirect()->route('attendance.index');
     }
 }
