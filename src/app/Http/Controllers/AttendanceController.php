@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Attendance;
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
     public function __construct()
     {
-        // ★ これを必ず追加
+        // 全てのメソッドでログイン必須
         $this->middleware('auth');
     }
     /**
@@ -64,5 +65,34 @@ class AttendanceController extends Controller
 
         return back()->with('message', 'お疲れ様でした。');
     }
+
+    // 休憩入　追加
+    public function breakStart()
+    {
+        $attendance = Attendance::where('user_id', auth()->id())
+            ->whereDate('work_date', now())
+            ->first();
+
+        $attendance->update([
+            'status' => '休憩中',
+        ]);
+
+        return back();
+    }
+
+    // 休憩戻
+    public function breakEnd()
+    {
+        $attendance = Attendance::where('user_id', auth()->id())
+            ->whereDate('work_date', now())
+            ->first();
+
+        $attendance->update([
+            'status' => '出勤中',
+        ]);
+
+        return back();
+    }
 }
+
 

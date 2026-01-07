@@ -1,6 +1,7 @@
 .attendance {
-    min-height: calc(100vh - 100px);
+    min-height: 100vh;
     display: flex;
+    background: #f2f2f2;   
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -54,3 +55,33 @@
     background: #000;
     color: #fff;
 }
+
+.attendance__actions form {
+    width: auto;
+}
+
+.attendance__actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* ボタン間の余白 */
+}
+
+.attendance__actions form {
+    margin: 0;
+}
+
+.attendance__actions button {
+    width: 180px;
+}
+
+/* 休憩入ボタン用 */
+.attendance__button--break {
+   background: #fff;      /* 白 */
+    color: #000;           /* 黒文字 */
+    border: none;          /* 縁なし */
+    font-size: 20px;
+    border-radius: 20px;   /* 丸みだけ */
+    cursor: pointer;
+    transition: 0.2s;
+}
+
