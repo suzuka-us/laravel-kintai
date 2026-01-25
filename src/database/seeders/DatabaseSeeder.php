@@ -15,6 +15,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AttendanceSeeder::class,
             BreakTimeSeeder::class,
+            UserSeeder::class,
+            
+
         ]);
         // \App\Models\User::factory(10)->create();
 

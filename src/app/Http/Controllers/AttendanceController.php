@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
 use Illuminate\Support\Facades\Auth;
+use App\Models\BreakTime;
 
 class AttendanceController extends Controller
 {
@@ -67,7 +68,7 @@ class AttendanceController extends Controller
     }
 
     // 休憩入　追加
-    public function breakStart()
+    public function breakStart(Request $request)
     {
         $attendance = Attendance::where('user_id', auth()->id())
             ->whereDate('work_date', now())
@@ -77,18 +78,31 @@ class AttendanceController extends Controller
             'status' => '休憩中',
         ]);
 
+        $breakTime = BreakTime::create([
+            'attendance_id' => $attendance->id,
+            'break_start' => now(),
+        ]);
+
+        $request->session()->put('breakTimeId', $breakTime->id);
+
         return back();
     }
 
+
     // 休憩戻
-    public function breakEnd()
+    public function breakEnd(Request $request)
     {
         $attendance = Attendance::where('user_id', auth()->id())
             ->whereDate('work_date', now())
             ->first();
-
         $attendance->update([
             'status' => '出勤中',
+        ]);
+
+        $breakTimeId = $request->session()->get('breakTimeId');
+        $breakTime = BreakTime::find($breakTimeId);
+        $breakTime->update([
+            'break_end' => now(),
         ]);
 
         return back();

@@ -13,13 +13,17 @@ class AttendanceSeeder extends Seeder
      */
     public function run(): void
     {
-        Attendance::create([
-            'user_id'   => 1, // usersテーブルに存在するID
-            'work_date' => Carbon::today(),
-            'clock_in'  => null,
-            'clock_out' => null,
-            'status'    => '勤務外',
-            'remark'    => null,
-        ]);
+        // testuserの勤怠データを作成
+        // 2025/12/1 から 2025/12/20 までの勤怠データを作成
+        for ($date = Carbon::parse('2025/12/1'); $date->lte(Carbon::parse('2025/12/20')); $date->addDay()) {
+            Attendance::create([
+                'user_id'   => 1, // usersテーブルに存在するID
+                'work_date' => $date,
+                'clock_in'  => '08:00:00',
+                'clock_out' => '20:00:00',
+                'status'    => '退勤済み',
+                'remark'    => null,
+            ]);
+        }
     }
 }
