@@ -1,0 +1,27 @@
+.attendance-list {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.attendance-list h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.attendance-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.attendance-list th,
+.attendance-list td {
+    border-bottom: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.month-nav {
+    text-align: center;
+    margin-bottom: 20px;
+}

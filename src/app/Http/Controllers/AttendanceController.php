@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Attendance;
 use Illuminate\Support\Facades\Auth;
 use App\Models\BreakTime;
+use Carbon\Carbon;
 
 class AttendanceController extends Controller
 {
@@ -107,6 +108,32 @@ class AttendanceController extends Controller
 
         return back();
     }
+   
+    // 勤怠一覧画面
+    public function list(Request $request)
+    {
+        // 表示する月（指定がなければ今月）
+        $currentMonth = $request->input('month')
+            ? Carbon::parse($request->input('month'))
+            : Carbon::now();
+
+        // 月初・月末
+        $startOfMonth = $currentMonth->copy()->startOfMonth();
+        $endOfMonth   = $currentMonth->copy()->endOfMonth();
+
+        // 勤怠取得（自分の分だけ）
+        $attendances = Attendance::where('user_id', auth()->id())
+            ->whereBetween('work_date', [$startOfMonth, $endOfMonth])
+            ->orderBy('work_date')
+            ->get();
+
+        return view('attendance.list', [
+            'attendances'   => $attendances,
+            'currentMonth'  => $currentMonth,
+        ]);
+    }
+
+
 }
 
 

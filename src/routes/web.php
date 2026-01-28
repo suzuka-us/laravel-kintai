@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Admin\Auth\LoginController as AdminLoginController;
 use App\Http\Controllers\AttendanceController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,4 +51,10 @@ Route::middleware('auth')->group(function () {
     
         Route::post('/attendance/break-end', [AttendanceController::class, 'breakEnd'])->name('attendance.breakEnd');
 
+});
+
+// 勤怠一覧画面
+Route::middleware('auth')->group(function () {
+    Route::get('/attendance/list', [AttendanceController::class, 'list'])
+        ->name('attendance.list');
 });
