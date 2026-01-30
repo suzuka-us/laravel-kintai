@@ -58,3 +58,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/attendance/list', [AttendanceController::class, 'list'])
         ->name('attendance.list');
 });
+
+// 勤怠詳細画面
+Route::middleware('auth')->group(function () {
+    Route::get(
+        '/attendance/detail/{id}',
+        [AttendanceController::class, 'detail']
+    )->name('attendance.detail');
+});
+

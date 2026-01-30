@@ -133,7 +133,20 @@ class AttendanceController extends Controller
         ]);
     }
 
+    // 勤怠詳細画面
+    public function detail($id)
+    {
+        $attendance = Attendance::with('breaks')
+            ->where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
 
+        return view('attendance.detail', [
+            'attendance' => $attendance,
+            'user' => auth()->user(),
+        ]);
+    }
+    
 }
 
 

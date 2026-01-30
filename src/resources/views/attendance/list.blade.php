@@ -40,7 +40,9 @@
             <td>{{ $attendance->clock_out ?? '' }}</td>
             <td>{{ $attendance->status }}</td>
             <td>
-                <a href="#">詳細</a>
+                <a href="{{ route('attendance.detail', $attendance->id) }}">
+                    詳細
+                </a>
             </td>
         </tr>
         @endforeach
