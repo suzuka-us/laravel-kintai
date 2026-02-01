@@ -1,20 +1,20 @@
 .attendance-detail {
     background: #f5f5f5;
     min-height: calc(100vh - 80px);
-    padding: 40px;
+    padding: 60px;
 }
 
 /* 共通の横幅と中央寄せ */
 .attendance-detail__inner {
-    width: 550px;
+    width: 600px;
     margin: 0 auto;
 }
 
 /* タイトル */
 .attendance-detail__title {
     margin-left: 1%;
-    margin-bottom: 10px;
-    font-size: 30px;
+    margin-bottom: 8px;
+    font-size: 25px;
     font-weight: bold;
 }
 
@@ -30,32 +30,37 @@
 /* 各行 */
 .attendance-detail__row {
     display: flex;
-    padding: 16px 20px;
+    padding: 15px 100px 15px 20px;
+        /* ← 左だけ詰める */
     border-bottom: 1px solid #e0e0e0;
     align-items: center;
 }
 
-.attendance-detail__row:last-child {
-    border-bottom: none;
-}
-
+/* ラベル */
 .label {
-    width: 140px;
+    width: 230px;
     font-weight: bold;
+    text-align: left;
 }
 
+/* 値 */
 .value {
     flex: 1;
+    text-align: left;
+    /* 文字だけ左寄せ */
 }
 
 /* input */
-input[type="time"] {
+.value input[type="time"] {
     padding: 4px 6px;
+    text-align: left;
 }
 
+/* textarea */
 textarea.value {
     width: 100%;
     min-height: 60px;
+    text-align: left;
 }
 
 /* ボタン */
@@ -73,3 +78,4 @@ textarea.value {
     border-radius: 4px;
     cursor: pointer;
 }
+
