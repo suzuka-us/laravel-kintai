@@ -17,6 +17,23 @@
     font-size: 25px;
     font-weight: bold;
 }
+.attendance-detail__title {
+    position: relative;
+    padding-left: 14px;
+    /* 線との間隔 */
+}
+
+.attendance-detail__title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 4px;
+    height: 28px;
+    background-color: #333;
+    /* 線の色 */
+    border-radius: 2px;
+}
 
 /* 枠 */
 .attendance-detail__card {
