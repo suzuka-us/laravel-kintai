@@ -48,7 +48,6 @@
 .attendance-detail__row {
     display: flex;
     padding: 15px 100px 15px 20px;
-        /* ← 左だけ詰める */
     border-bottom: 1px solid #e0e0e0;
     align-items: center;
 }
@@ -64,7 +63,7 @@
 .value {
     flex: 1;
     text-align: left;
-    /* 文字だけ左寄せ */
+    
 }
 
 /* input */

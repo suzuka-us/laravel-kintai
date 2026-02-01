@@ -141,9 +141,13 @@ class AttendanceController extends Controller
             ->where('user_id', auth()->id())
             ->firstOrFail();
 
+        // 追加①：承認待ちは編集不可
+        $isEditable = $attendance->status !== 'pending';
+       
         return view('attendance.detail', [
             'attendance' => $attendance,
             'user' => auth()->user(),
+            'isEditable' => $isEditable, // 追加②
         ]);
     }
     

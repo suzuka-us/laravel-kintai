@@ -9,8 +9,15 @@
 <div class="attendance-detail">
 
     {{-- タイトル（枠の外・左） --}}
+    @if(!$isEditable)
+    <p class="text-danger">
+        承認待ちのため修正はできません。
+    </p>
+    @endif
+
     <div class="attendance-detail__inner">
         <h1 class="attendance-detail__title">勤怠詳細</h1>
+
 
 
         {{-- 枠 --}}
@@ -77,4 +84,4 @@
             <button class="submit-btn">修正</button>
         </div>
 
-    @endsection
+        @endsection
