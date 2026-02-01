@@ -1,34 +1,75 @@
 .attendance-detail {
     background: #f5f5f5;
     min-height: calc(100vh - 80px);
-    padding: 40px 0;
-    display: flex;
-    justify-content: center;
+    padding: 40px;
 }
 
+/* 共通の横幅と中央寄せ */
+.attendance-detail__inner {
+    width: 550px;
+    margin: 0 auto;
+}
+
+/* タイトル */
+.attendance-detail__title {
+    margin-left: 1%;
+    margin-bottom: 10px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* 枠 */
 .attendance-detail__card {
     background: #fff;
     width: 600px;
-    padding: 30px;
+    margin: 0 auto;
     border-radius: 8px;
+    overflow: hidden;
 }
 
-.attendance-detail__title {
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
+/* 各行 */
 .attendance-detail__row {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    align-items: center;
 }
 
-.attendance-detail__row label {
+.attendance-detail__row:last-child {
+    border-bottom: none;
+}
+
+.label {
+    width: 140px;
     font-weight: bold;
 }
 
-.attendance-detail__input {
-    width: 140px;
+.value {
+    flex: 1;
+}
+
+/* input */
+input[type="time"] {
+    padding: 4px 6px;
+}
+
+textarea.value {
+    width: 100%;
+    min-height: 60px;
+}
+
+/* ボタン */
+.attendance-detail__action {
+    width: 600px;
+    margin: 15px auto 0;
+    text-align: right;
+}
+
+.submit-btn {
+    background: #333;
+    color: #fff;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }

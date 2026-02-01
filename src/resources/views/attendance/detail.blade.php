@@ -1,59 +1,80 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/attendance-detail.css') }}">
+@endsection
 
 @section('content')
+
 <div class="attendance-detail">
 
-    <h2>勤怠詳細</h2>
+    {{-- タイトル（枠の外・左） --}}
+    <div class="attendance-detail__inner">
+        <h1 class="attendance-detail__title">勤怠詳細</h1>
 
-    {{-- 名前 --}}
-    <p>名前：{{ $user->name }}</p>
 
-    {{-- 日付 --}}
-    <p>日付：{{ $attendance->work_date }}</p>
+        {{-- 枠 --}}
+        <div class="attendance-detail__card">
 
-    {{-- 出勤・退勤 --}}
-    <form method="POST" action="#">
-        @csrf
+            {{-- 名前 --}}
+            <div class="attendance-detail__row">
+                <span class="label">名前</span>
+                <span class="value">{{ $user->name }}</span>
+            </div>
 
-        <div>
-            <label>出勤</label>
-            <input type="time" name="clock_in"
-                value="{{ $attendance->clock_in }}">
+            {{-- 日付 --}}
+            <div class="attendance-detail__row">
+                <span class="label">日付</span>
+                <span class="value">
+                    {{ \Carbon\Carbon::parse($attendance->work_date)->format('Y年 n月j日') }}
+                </span>
+            </div>
+
+            {{-- 出勤・退勤 --}}
+            <div class="attendance-detail__row">
+                <span class="label">出勤・退勤</span>
+                <div class="value">
+                    <input type="time" value="{{ $attendance->clock_in }}">
+                    〜
+                    <input type="time" value="{{ $attendance->clock_out }}">
+                </div>
+            </div>
+
+            {{-- 休憩 --}}
+            <div class="attendance-detail__row">
+                <span class="label">休憩</span>
+                <div class="value">
+                    <input type="time"
+                        value="{{ $attendance->breaks[0]->break_start ?? '' }}">
+                    〜
+                    <input type="time"
+                        value="{{ $attendance->breaks[0]->break_end ?? '' }}">
+                </div>
+            </div>
+
+            <div class="attendance-detail__row">
+                <span class="label">休憩2</span>
+                <div class="value">
+                    <input type="time"
+                        value="{{ $attendance->breaks[1]->break_start ?? '' }}">
+                    〜
+                    <input type="time"
+                        value="{{ $attendance->breaks[1]->break_end ?? '' }}">
+                </div>
+            </div>
+
+
+            {{-- 備考 --}}
+            <div class="attendance-detail__row">
+                <span class="label">備考</span>
+                <textarea class="value">{{ $attendance->remark }}</textarea>
+            </div>
+
         </div>
 
-        <div>
-            <label>退勤</label>
-            <input type="time" name="clock_out"
-                value="{{ $attendance->clock_out }}">
+        {{-- 修正ボタン --}}
+        <div class="attendance-detail__action">
+            <button class="submit-btn">修正</button>
         </div>
 
-        {{-- 休憩 --}}
-        <h3>休憩</h3>
-
-        @foreach($attendance->breaks as $break)
-        <div>
-            <input type="time"
-                value="{{ $break->break_start }}">
-            〜
-            <input type="time"
-                value="{{ $break->break_end }}">
-        </div>
-        @endforeach
-
-        {{-- 追加用（1行） --}}
-        <div>
-            <input type="time"> 〜 <input type="time">
-        </div>
-
-        {{-- 備考 --}}
-        <div>
-            <label>備考</label><br>
-            <textarea name="remark">{{ $attendance->remark }}</textarea>
-        </div>
-
-        <button>修正申請</button>
-    </form>
-
-</div>
-@endsection
+    @endsection
