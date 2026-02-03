@@ -7,6 +7,7 @@ use App\Models\Attendance;
 use Illuminate\Support\Facades\Auth;
 use App\Models\BreakTime;
 use Carbon\Carbon;
+use App\Http\Requests\AttendanceUpdateRequest;// 追加
 
 class AttendanceController extends Controller
 {
@@ -150,7 +151,13 @@ class AttendanceController extends Controller
             'isEditable' => $isEditable, // 追加②
         ]);
     }
-    
+
+    // FormRequest追加
+    public function update(AttendanceUpdateRequest $request, $id)
+    {
+        // ① 承認待ち二重チェック（あとで実装）
+        // ② 修正申請処理（あとで実装）
+    }
 }
 
 

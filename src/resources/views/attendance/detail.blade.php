@@ -8,7 +8,7 @@
 
 <div class="attendance-detail">
 
-    {{-- タイトル（枠の外・左） --}}
+    {{-- ★追加①：承認待ちメッセージ --}}
     @if(!$isEditable)
     <p class="text-danger">
         承認待ちのため修正はできません。
@@ -18,18 +18,16 @@
     <div class="attendance-detail__inner">
         <h1 class="attendance-detail__title">勤怠詳細</h1>
 
-
-
         {{-- 枠 --}}
         <div class="attendance-detail__card">
 
-            {{-- 名前 --}}
+            {{-- 名前（変更なし） --}}
             <div class="attendance-detail__row">
                 <span class="label">名前</span>
                 <span class="value">{{ $user->name }}</span>
             </div>
 
-            {{-- 日付 --}}
+            {{-- 日付（変更なし） --}}
             <div class="attendance-detail__row">
                 <span class="label">日付</span>
                 <span class="value">
@@ -41,9 +39,14 @@
             <div class="attendance-detail__row">
                 <span class="label">出勤・退勤</span>
                 <div class="value">
-                    <input type="time" value="{{ $attendance->clock_in }}">
+                    {{-- ★変更②：readonly 制御 --}}
+                    <input type="time"
+                        value="{{ $attendance->clock_in }}"
+                        {{ $isEditable ? '' : 'readonly' }}>
                     〜
-                    <input type="time" value="{{ $attendance->clock_out }}">
+                    <input type="time"
+                        value="{{ $attendance->clock_out }}"
+                        {{ $isEditable ? '' : 'readonly' }}>
                 </div>
             </div>
 
@@ -51,37 +54,48 @@
             <div class="attendance-detail__row">
                 <span class="label">休憩</span>
                 <div class="value">
+                    {{-- ★変更③：readonly 制御 --}}
                     <input type="time"
-                        value="{{ $attendance->breaks[0]->break_start ?? '' }}">
+                        value="{{ $attendance->breaks[0]->break_start ?? '' }}"
+                        {{ $isEditable ? '' : 'readonly' }}>
                     〜
                     <input type="time"
-                        value="{{ $attendance->breaks[0]->break_end ?? '' }}">
+                        value="{{ $attendance->breaks[0]->break_end ?? '' }}"
+                        {{ $isEditable ? '' : 'readonly' }}>
                 </div>
             </div>
 
             <div class="attendance-detail__row">
                 <span class="label">休憩2</span>
                 <div class="value">
+                    {{-- ★変更④：readonly 制御 --}}
                     <input type="time"
-                        value="{{ $attendance->breaks[1]->break_start ?? '' }}">
+                        value="{{ $attendance->breaks[1]->break_start ?? '' }}"
+                        {{ $isEditable ? '' : 'readonly' }}>
                     〜
                     <input type="time"
-                        value="{{ $attendance->breaks[1]->break_end ?? '' }}">
+                        value="{{ $attendance->breaks[1]->break_end ?? '' }}"
+                        {{ $isEditable ? '' : 'readonly' }}>
                 </div>
             </div>
-
 
             {{-- 備考 --}}
             <div class="attendance-detail__row">
                 <span class="label">備考</span>
-                <textarea class="value">{{ $attendance->remark }}</textarea>
+                {{-- ★変更⑤：readonly 制御 --}}
+                <textarea class="value"
+                    {{ $isEditable ? '' : 'readonly' }}>{{ $attendance->remark }}</textarea>
             </div>
 
         </div>
 
         {{-- 修正ボタン --}}
         <div class="attendance-detail__action">
-            <button class="submit-btn">修正</button>
+            {{-- ★変更⑥：承認待ちは押せない --}}
+            <button class="submit-btn"
+                {{ $isEditable ? '' : 'disabled' }}>
+                修正
+            </button>
         </div>
 
         @endsection
