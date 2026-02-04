@@ -67,3 +67,6 @@ Route::middleware('auth')->group(function () {
     )->name('attendance.detail');
 });
 
+// ★追加：勤怠更新用
+Route::put('/attendance/{attendance}', [AttendanceController::class, 'update'])
+    ->name('attendance.update');
