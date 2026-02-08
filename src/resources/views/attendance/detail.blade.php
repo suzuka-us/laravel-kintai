@@ -100,23 +100,23 @@
 
         </div>
 
-        {{-- ★追加①：フォーム開始 --}}
-        <form method="POST" action="{{ route('attendance.update', $attendance->id) }}">
-            @csrf
-            @method('PUT')
+       {{-- ★追加①：フォーム開始 --}}
+<form method="POST" action="{{ route('attendance.update', $attendance->id) }}">
+    @csrf
+    @method('PUT')
 
-            {{-- 修正ボタン --}}
-            <div class="attendance-detail__action">
-                {{-- ★変更⑥：承認待ちは押せない ＋ ★変更⑦：submit指定 --}}
-                <button type="submit"
-                    class="submit-btn"
-                    {{ $isEditable ? '' : 'disabled' }}>
-                    修正
-                </button>
-            </div>
+    {{-- 修正ボタン --}}
+    <div class="attendance-detail__action">
+        {{-- ★変更⑥：承認待ちは押せない ＋ ★変更⑦：submit指定 --}}
+        <button type="submit"
+                class="submit-btn"
+                {{ $isEditable ? '' : 'disabled' }}>
+            修正
+        </button>
+    </div>
 
-            {{-- ★追加②：フォーム終了 --}}
-        </form>
+{{-- ★追加②：フォーム終了 --}}
+</form>
 
-
+        
         @endsection
