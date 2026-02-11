@@ -60,13 +60,13 @@ Route::middleware('auth')->group(function () {
 });
 
 // 勤怠詳細画面
-Route::middleware('auth')->group(function () {
-    Route::get(
-        '/attendance/detail/{id}',
-        [AttendanceController::class, 'detail']
-    )->name('attendance.detail');
-});
+Route::get('/attendance/detail/{id}', [AttendanceController::class, 'detail'])
+    ->middleware('auth')
+    ->name('attendance.detail');
+
 
 // ★追加：勤怠更新用
 Route::put('/attendance/{attendance}', [AttendanceController::class, 'update'])
+    ->middleware('auth')
     ->name('attendance.update');
+

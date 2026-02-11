@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 use Carbon\Carbon;
 
+
 class AttendanceUpdateRequest extends FormRequest
 {
     public function authorize(): bool
@@ -63,7 +64,7 @@ class AttendanceUpdateRequest extends FormRequest
 
                         if ($breakStart->lt($clockIn) || $breakStart->gt($clockOut)) {
                             $validator->errors()->add(
-                                'breaks',
+                                'breaks.*.break_start',
                                 '休憩時間が不適切な値です'
                             );
                             return;
@@ -75,7 +76,7 @@ class AttendanceUpdateRequest extends FormRequest
 
                         if ($breakEnd->gt($clockOut)) {
                             $validator->errors()->add(
-                                'breaks',
+                                'breaks.*.break_end',
                                 '休憩時間もしくは退勤時間が不適切な値です'
                             );
                             return;
@@ -85,4 +86,6 @@ class AttendanceUpdateRequest extends FormRequest
             }
         });
     }
+    
+    
 }

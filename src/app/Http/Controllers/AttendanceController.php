@@ -142,21 +142,39 @@ class AttendanceController extends Controller
             ->where('user_id', auth()->id())
             ->firstOrFail();
 
-        // 追加①：承認待ちは編集不可
+        // ★追加①：承認待ちは編集不可
         $isEditable = $attendance->status !== 'pending';
-       
+
         return view('attendance.detail', [
             'attendance' => $attendance,
             'user' => auth()->user(),
-            'isEditable' => $isEditable, // 追加②
+            'isEditable' => $isEditable,
         ]);
     }
 
-    // FormRequest追加
-    public function update(AttendanceUpdateRequest $request, $id)
+    // 勤怠更新（修正申請）
+    public function update(AttendanceUpdateRequest $request, $attendance)
     {
-        // ① 承認待ち二重チェック（あとで実装）
-        // ② 修正申請処理（あとで実装）
+        $attendance = Attendance::where('id', $attendance)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        // 承認待ちは修正不可
+        if ($attendance->status === 'pending') {
+            return back()->withErrors('承認待ちのため修正できません。');
+        }
+
+        // 修正申請 → 承認待ちにする
+        $attendance->update([
+            'apply_clock_in'  => $request->clock_in,
+            'apply_clock_out' => $request->clock_out,
+            'apply_remark'    => $request->remark,   
+            'status'          => 'pending',
+        ]);
+
+        // 詳細画面へ戻す
+        return redirect()->route('attendance.detail', $attendance->id)
+            ->with('message', '修正申請しました。');
     }
 }
 
