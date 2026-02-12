@@ -173,14 +173,34 @@ class AttendanceController extends Controller
             'status'          => 'pending',
         ]);
 
-        // 休憩（追加部分）
-        foreach ($attendance->breaks as $index => $break) {
+        //  休憩
+        foreach ($request->breaks as $index => $breakInput) {
 
-            $break->update([
-                'apply_break_start' => $request->input("breaks.$index.break_start"),
-                'apply_break_end'   => $request->input("breaks.$index.break_end"),
-            ]);
+            // 追加
+            if (empty($breakInput['break_start']) && empty($breakInput['break_end'])) {
+                continue;
+            }
+
+            $break = $attendance->breaks[$index] ?? null;
+
+            if ($break) {
+                // 既存休憩を更新
+                $break->update([
+                    'apply_break_start' => $breakInput['break_start'],
+                    'apply_break_end'   => $breakInput['break_end'],
+                ]);
+            } else {
+                // 新規作成
+                BreakTime::create([
+                    'attendance_id'     => $attendance->id,
+                    'break_start'       => $breakInput['break_start'],
+                    'break_end'         => $breakInput['break_end'],
+                    'apply_break_start' => $breakInput['break_start'],
+                    'apply_break_end'   => $breakInput['break_end'],
+                ]);
+            }
         }
+
         return redirect()->route('attendance.detail', $attendance->id)
             ->with('message', '修正申請しました。');
     }
