@@ -153,9 +153,10 @@ class AttendanceController extends Controller
     }
 
     // 勤怠更新（修正申請）
-    public function update(AttendanceUpdateRequest $request, $attendance)
+    public function update(AttendanceUpdateRequest $request, $id)
     {
-        $attendance = Attendance::where('id', $attendance)
+        $attendance = Attendance::with('breaks')
+            ->where('id', $id)
             ->where('user_id', auth()->id())
             ->firstOrFail();
 
@@ -164,18 +165,23 @@ class AttendanceController extends Controller
             return back()->withErrors('承認待ちのため修正できません。');
         }
 
-        // 修正申請 → 承認待ちにする
+        // 出退勤・備考
         $attendance->update([
             'apply_clock_in'  => $request->clock_in,
             'apply_clock_out' => $request->clock_out,
-            'apply_remark'    => $request->remark,   
+            'apply_remark'    => $request->remark,
             'status'          => 'pending',
         ]);
 
-        // 詳細画面へ戻す
+        // 休憩（追加部分）
+        foreach ($attendance->breaks as $index => $break) {
+
+            $break->update([
+                'apply_break_start' => $request->input("breaks.$index.break_start"),
+                'apply_break_end'   => $request->input("breaks.$index.break_end"),
+            ]);
+        }
         return redirect()->route('attendance.detail', $attendance->id)
             ->with('message', '修正申請しました。');
     }
 }
-
-

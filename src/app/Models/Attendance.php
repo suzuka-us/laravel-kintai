@@ -14,8 +14,11 @@ class Attendance extends Model
         'work_date',
         'clock_in',
         'clock_out',
-        'status',
         'remark',
+        'status',
+        'apply_clock_in',
+        'apply_clock_out',
+        'apply_remark',
     ];
 
     // 休憩（1対多）

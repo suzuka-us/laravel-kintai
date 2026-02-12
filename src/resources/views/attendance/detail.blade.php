@@ -74,15 +74,26 @@
                     <div class="value">
                         <input type="time"
                             name="breaks[0][break_start]"
-                            value="{{ optional($attendance->breaks[0]->break_start ?? null)?->format('H:i') }}"
+                            value="{{ old('breaks.0.break_start',
+                $attendance->status === 'pending'
+                    ? substr($attendance->breaks[0]->apply_break_start ?? '',0,5)
+                    : substr($attendance->breaks[0]->break_start ?? '',0,5)
+            ) }}"
                             {{ $isEditable ? '' : 'readonly' }}>
+
                         〜
+
                         <input type="time"
                             name="breaks[0][break_end]"
-                            value="{{ optional($attendance->breaks[0]->break_end ?? null)?->format('H:i') }}"
+                            value="{{ old('breaks.0.break_end',
+                $attendance->status === 'pending'
+                    ? substr($attendance->breaks[0]->apply_break_end ?? '',0,5)
+                    : substr($attendance->breaks[0]->break_end ?? '',0,5)
+            ) }}"
                             {{ $isEditable ? '' : 'readonly' }}>
                     </div>
                 </div>
+
 
                 {{-- 休憩2 --}}
                 <div class="attendance-detail__row">
@@ -90,15 +101,26 @@
                     <div class="value">
                         <input type="time"
                             name="breaks[1][break_start]"
-                            value="{{ optional($attendance->breaks[1]->break_start ?? null)?->format('H:i') }}"
+                            value="{{ old('breaks.1.break_start',
+                $attendance->status === 'pending'
+                    ? substr($attendance->breaks[1]->apply_break_start ?? '',0,5)
+                    : substr($attendance->breaks[1]->break_start ?? '',0,5)
+            ) }}"
                             {{ $isEditable ? '' : 'readonly' }}>
+
                         〜
+
                         <input type="time"
                             name="breaks[1][break_end]"
-                            value="{{ optional($attendance->breaks[1]->break_end ?? null)?->format('H:i') }}"
+                            value="{{ old('breaks.1.break_end',
+                $attendance->status === 'pending'
+                    ? substr($attendance->breaks[1]->apply_break_end ?? '',0,5)
+                    : substr($attendance->breaks[1]->break_end ?? '',0,5)
+            ) }}"
                             {{ $isEditable ? '' : 'readonly' }}>
                     </div>
                 </div>
+
 
                 {{-- 備考 --}}
                 <div class="attendance-detail__row">
