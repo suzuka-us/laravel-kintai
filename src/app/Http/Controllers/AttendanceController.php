@@ -123,7 +123,8 @@ class AttendanceController extends Controller
         $endOfMonth   = $currentMonth->copy()->endOfMonth();
 
         // 勤怠取得（自分の分だけ）
-        $attendances = Attendance::where('user_id', auth()->id())
+        $attendances = Attendance::with('breaks') // ← ここを追加
+            ->where('user_id', auth()->id())
             ->whereBetween('work_date', [$startOfMonth, $endOfMonth])
             ->orderBy('work_date')
             ->get();
@@ -201,7 +202,8 @@ class AttendanceController extends Controller
             }
         }
 
-        return redirect()->route('attendance.detail', $attendance->id)
-            ->with('message', '修正申請しました。');
+       return redirect()
+    ->route('attendance.detail', $attendance->id)
+    ->with('updated', true);
     }
 }

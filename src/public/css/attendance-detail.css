@@ -95,3 +95,9 @@ textarea.value {
     cursor: pointer;
 }
 
+.pending-text {
+    display: block;
+    color: #e60000;
+    font-weight: bold;
+    text-align: right;
+}
