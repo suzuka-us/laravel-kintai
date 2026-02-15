@@ -9,7 +9,6 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\StampCorrectionRequestController;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -73,9 +72,8 @@ Route::put('/attendance/{attendance}', [AttendanceController::class, 'update'])
     ->name('attendance.update');
 
 // 申請一覧画面 
-Route::middleware('auth')->group(function () {
-    Route::get(
-        '/stamp_correction_request/list',
-        [StampCorrectionRequestController::class, 'requestList']
-    )->name('stamp_correction_request.request_list');
-});
+
+Route::get(
+    '/stamp_correction_request/list',
+    [StampCorrectionRequestController::class, 'requestList']
+)->name('stamp_correction_request.list');

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Attendance;
+use App\Models\AttendanceCorrectionRequest;
 
 class StampCorrectionRequestController extends Controller
 {
@@ -13,25 +13,25 @@ class StampCorrectionRequestController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * 申請一覧画面
-     */
     public function requestList()
     {
         $userId = Auth::id();
 
-        // 承認待ち：status = pending
-        $pendingRequests = Attendance::where('user_id', $userId)
+        $pendingRequests = AttendanceCorrectionRequest::with('user', 'attendance')
+            ->where('user_id', $userId)
             ->where('status', 'pending')
             ->orderBy('created_at', 'desc')
             ->get();
 
-        // 承認済み：status = approved
-        $approvedRequests = Attendance::where('user_id', $userId)
+        $approvedRequests = AttendanceCorrectionRequest::with('user', 'attendance')
+            ->where('user_id', $userId)
             ->where('status', 'approved')
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('stamp_correction_request.request_list', compact('pendingRequests', 'approvedRequests'));
+        return view(
+            'stamp_correction_request.request_list',
+            compact('pendingRequests', 'approvedRequests')
+        );
     }
 }
