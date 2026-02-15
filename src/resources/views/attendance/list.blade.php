@@ -5,7 +5,10 @@
 @endsection
 
 @section('content')
+
+
 <div class="attendance-list">
+    <h1 class="attendance-list__title">勤怠一覧</h1>
 
     <h2>
         {{ $currentMonth->format('Y年m月') }}

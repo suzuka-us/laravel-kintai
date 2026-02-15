@@ -6,6 +6,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Admin\Auth\LoginController as AdminLoginController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\StampCorrectionRequestController;
+
 
 
 /*
@@ -70,3 +72,10 @@ Route::put('/attendance/{attendance}', [AttendanceController::class, 'update'])
     ->middleware('auth')
     ->name('attendance.update');
 
+// 申請一覧画面 
+Route::middleware('auth')->group(function () {
+    Route::get(
+        '/stamp_correction_request/list',
+        [StampCorrectionRequestController::class, 'requestList']
+    )->name('stamp_correction_request.request_list');
+});
