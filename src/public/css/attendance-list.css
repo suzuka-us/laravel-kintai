@@ -1,97 +1,106 @@
-/* ===== 全体 ===== */
-.attendance-list {
-    width: 90%;
-    margin: 40px auto;
+/* ページ背景と中央寄せ */
+.attendance-wrapper {
+    background: #f5f5f5;
+    min-height: calc(100vh - 80px);
+    padding: 60px;
 }
 
-/* タイトルの左横に縦線 */
-.attendance-list__title {
-    font-size: 24px;
+/* タイトル：白枠の上、左寄せ */
+.attendance-wrapper__title {
+    font-size: 25px;
     font-weight: bold;
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-}
-
-.attendance-list__title .title-line {
-    display: inline-block;
-    width: 4px;
-    /* 線の太さ */
-    height: 30px;
-    /* 線の高さ */
-    background-color: #000;
-    /* 黒色 */
-    margin-right: 10px;
-    /* 文字との間隔 */
-}
-
-.attendance-list h2 {
-    margin: 30px 0 10px;
-    font-size: 18px;
-}
-
-/* ===== テーブル ===== */
-.attendance-list table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-}
-
-.attendance-list th {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 2px solid #ccc;
-    font-weight: bold;
-}
-
-.attendance-list td {
-    padding: 12px;
-    border-bottom: 1px solid #eee;
-}
-
-.attendance-list tr:hover {
-    background-color: #f9f9f9;
-}
-
-.attendance-list a {
-    color: #000;
-    text-decoration: underline;
-}
-
-.attendance-list a:hover {
-    opacity: 0.7;
-}
-
-/* ===== タブ部分（申請一覧用） ===== */
-.month-nav.tab-area {
-    display: flex !important;
-    /* 左寄せ */
-    justify-content: flex-start !important;
-    border-bottom: 2px solid #ccc !important;
-    /* 横線 */
-    padding-bottom: 8px !important;
-    margin-bottom: 20px !important;
-}
-
-.month-nav.tab-area .tab-text {
-    margin-right: 20px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #999;
+    margin: 0 0 40px 0;
+    /* 下に余白のみ */
+    padding-left: 14px;
     position: relative;
-    font-size: 16px;
 }
 
-.month-nav.tab-area .tab-text.active {
-    color: #000 !important;
-}
-
-.month-nav.tab-area .tab-text.active::after {
+.attendance-wrapper__title::before {
     content: "";
     position: absolute;
     left: 0;
-    bottom: -12px;
+    top: 2px;
+    width: 4px;
+    height: 28px;
+    background-color: #333;
+    border-radius: 2px;
+}
+
+/* 内側カード */
+.attendance-wrapper__inner {
+    width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+/* 月ナビゲーション */
+.month-nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.month-nav__prev,
+.month-nav__next {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.month-nav__form {
+    flex: 1;
+    text-align: center;
+}
+
+/* 左にブラウザ標準カレンダーアイコン */
+.month-input-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.month-input-wrapper input[type="month"] {
+    font-size: 16px;
+    border: none;
+    background: none;
+    padding-left: 30px;
+    cursor: pointer;
+    -webkit-appearance: menulist-button;
+    -moz-appearance: menulist-button;
+    appearance: menulist-button;
+}
+
+.month-input-wrapper input[type="month"]:focus {
+    outline: none;
+}
+
+/* テーブルカード */
+.attendance-card {
     width: 100%;
-    height: 3px;
-    background-color: #000;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* ヘッダー */
+.attendance-card th {
+    background: #fff;
+    color: #333;
+    font-weight: bold;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* 行 */
+.attendance-card td {
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* 詳細リンク */
+.attendance-card a {
+    color: #333;
+    text-decoration: none;
 }

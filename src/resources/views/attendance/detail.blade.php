@@ -1,3 +1,4 @@
+<!-- resources/views/attendance/detail.blade.php -->
 @extends('layouts.app')
 
 @section('css')
@@ -5,7 +6,6 @@
 @endsection
 
 @section('content')
-
 <div class="attendance-detail">
     <div class="attendance-detail__inner">
 
@@ -22,6 +22,8 @@
 
         <h1 class="attendance-detail__title">勤怠詳細</h1>
 
+        {{-- 入力欄＋修正ボタンを1つのフォームに統合 --}}
+        @if($isEditable)
         <form method="POST" action="{{ route('attendance.update', $attendance->id) }}">
             @csrf
             @method('PUT')
@@ -46,104 +48,100 @@
                 <div class="attendance-detail__row">
                     <span class="label">出勤・退勤</span>
                     <div class="value">
-                        @if($isEditable)
                         <input type="time" name="clock_in"
                             value="{{ old('clock_in', optional($attendance->clock_in)->format('H:i')) }}">
                         〜
                         <input type="time" name="clock_out"
                             value="{{ old('clock_out', optional($attendance->clock_out)->format('H:i')) }}">
-                        @else
-                        <span>
-                            {{ optional($attendance->clock_in)->format('H:i') }}
-                            〜
-                            {{ optional($attendance->clock_out)->format('H:i') }}
-                        </span>
-                        @endif
                     </div>
                 </div>
-
 
                 {{-- 休憩1 --}}
                 <div class="attendance-detail__row">
                     <span class="label">休憩</span>
                     <div class="value">
-                        @if($isEditable)
                         <input type="time" name="breaks[0][break_start]"
-                            value="{{ old('breaks.0.break_start',
-                    substr($attendance->breaks[0]->break_start ?? '',0,5)
-                ) }}">
+                            value="{{ old('breaks.0.break_start', substr($attendance->breaks[0]->break_start ?? '',0,5)) }}">
                         〜
                         <input type="time" name="breaks[0][break_end]"
-                            value="{{ old('breaks.0.break_end',
-                    substr($attendance->breaks[0]->break_end ?? '',0,5)
-                ) }}">
-                        @else
-                        <span>
-                            {{ substr($attendance->breaks[0]->break_start ?? '',0,5) }}
-                            〜
-                            {{ substr($attendance->breaks[0]->break_end ?? '',0,5) }}
-                        </span>
-                        @endif
+                            value="{{ old('breaks.0.break_end', substr($attendance->breaks[0]->break_end ?? '',0,5)) }}">
                     </div>
                 </div>
 
-
-
                 {{-- 休憩2 --}}
-                @if($isEditable)
                 <div class="attendance-detail__row">
                     <span class="label">休憩2</span>
                     <div class="value">
-                        <input type="time"
-                            name="breaks[1][break_start]"
-                            value="{{ old('breaks.1.break_start',
-                substr($attendance->breaks[1]->break_start ?? '',0,5)
-            ) }}">
-
+                        <input type="time" name="breaks[1][break_start]"
+                            value="{{ old('breaks.1.break_start', substr($attendance->breaks[1]->break_start ?? '',0,5)) }}">
                         〜
-
-                        <input type="time"
-                            name="breaks[1][break_end]"
-                            value="{{ old('breaks.1.break_end',
-                substr($attendance->breaks[1]->break_end ?? '',0,5)
-            ) }}">
+                        <input type="time" name="breaks[1][break_end]"
+                            value="{{ old('breaks.1.break_end', substr($attendance->breaks[1]->break_end ?? '',0,5)) }}">
                     </div>
                 </div>
-                @endif
-
-
 
                 {{-- 備考 --}}
                 <div class="attendance-detail__row">
                     <span class="label">備考</span>
                     <div class="value">
-                        @if($isEditable)
                         <textarea name="remark">{{ old('remark', $attendance->remark) }}</textarea>
-                        @else
-                        <span>{{ $attendance->remark }}</span>
-                        @endif
                     </div>
                 </div>
 
-          </form>
-    </div>
-   
-   
-    {{-- 修正ボタン --}}
-    @if(!session('updated') && $isEditable)
-    <div class="attendance-detail__action">
-        <button type="submit" class="submit-btn">
-            修正
-        </button>
-    </div>
-    @endif
+            </div>
 
-    @if(!$isEditable)
-    <span class="pending-text">
-        *承認待ちのため修正はできません。
-    </span>
-    @endif
+            {{-- 修正ボタン --}}
+            @if(!session('updated'))
+            <div class="attendance-detail__action">
+                <button type="submit" class="submit-btn">修正</button>
+            </div>
+            @endif
+        </form>
+        @else
+        {{-- 編集不可時 --}}
+        <div class="attendance-detail__card">
+            <div class="attendance-detail__row">
+                <span class="label">名前</span>
+                <span class="value">{{ $user->name }}</span>
+            </div>
+            <div class="attendance-detail__row">
+                <span class="label">日付</span>
+                <span class="value">
+                    {{ \Carbon\Carbon::parse($attendance->work_date)->format('Y年n月j日') }}
+                </span>
+            </div>
+            <div class="attendance-detail__row">
+                <span class="label">出勤・退勤</span>
+                <div class="value">
+                    {{ $attendance->clock_in ? \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') : '' }}
+                    〜
+                    {{ $attendance->clock_out ? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : '' }}
 
-</div>
+                </div>
+            </div>
+            <div class="attendance-detail__row">
+                <span class="label">休憩</span>
+                <div class="value">
+                    {{ substr($attendance->breaks[0]->break_start ?? '',0,5) }}〜{{ substr($attendance->breaks[0]->break_end ?? '',0,5) }}
+                </div>
+            </div>
+            <div class="attendance-detail__row">
+                <span class="label">休憩2</span>
+                <div class="value">
+                    {{ substr($attendance->breaks[1]->break_start ?? '',0,5) }}〜{{ substr($attendance->breaks[1]->break_end ?? '',0,5) }}
+                </div>
+            </div>
+            <div class="attendance-detail__row">
+                <span class="label">備考</span>
+                <div class="value">{{ $attendance->remark }}</div>
+            </div>
 
-@endsection
+
+            @endif
+
+
+        </div>
+        <div class="pending-text">
+            *承認待ちのため修正はできません。
+        </div>
+        @endsection

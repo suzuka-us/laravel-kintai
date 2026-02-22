@@ -1,22 +1,26 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/attendance.css') }}">
+<link rel="stylesheet" href="{{ asset('css/attendance-list.css') }}">
 @endsection
 
 @section('content')
 
-<div class="attendance-list">
-    <div class="attendance-list__inner">
+<div class="attendance-wrapper">
 
-        <h1 class="attendance-list__title">勤怠一覧</h1>
+    {{-- タイトル：白枠の上、左寄せ --}}
+    <h1 class="attendance-wrapper__title">勤怠一覧</h1>
 
+    {{-- 白枠カード --}}
+    <div class="attendance-wrapper__inner">
+
+        {{-- 月ナビゲーション --}}
         <div class="month-nav-wrapper">
             <a class="month-nav__prev" href="{{ route('attendance.list', ['month' => $currentMonth->copy()->subMonth()->format('Y-m')]) }}">
                 ← 前月
             </a>
 
-            <form method="GET" action="{{ route('attendance.list') }}" class="month-nav__form">
+            <form class="month-nav__form" method="GET" action="{{ route('attendance.list') }}">
                 <div class="month-input-wrapper">
                     <input type="month" name="month" value="{{ $currentMonth->format('Y-m') }}" onchange="this.form.submit()">
                 </div>
@@ -28,8 +32,7 @@
         </div>
 
 
-
-
+        {{-- 勤怠テーブル --}}
         <table class="attendance-card">
             <thead>
                 <tr>
@@ -44,19 +47,14 @@
             <tbody>
                 @foreach($attendances as $attendance)
                 @php
-                $workMinutes = 0;
-                if ($attendance->clock_in && $attendance->clock_out) {
-                $start = \Carbon\Carbon::parse($attendance->clock_in);
-                $end = \Carbon\Carbon::parse($attendance->clock_out);
-                $workMinutes = $end->diffInMinutes($start);
-                }
+                $workMinutes = $attendance->clock_in && $attendance->clock_out
+                ? \Carbon\Carbon::parse($attendance->clock_out)->diffInMinutes(\Carbon\Carbon::parse($attendance->clock_in))
+                : 0;
 
                 $breakMinutes = 0;
                 foreach ($attendance->breaks as $break) {
                 if ($break->break_start && $break->break_end) {
-                $start = \Carbon\Carbon::parse($break->break_start);
-                $end = \Carbon\Carbon::parse($break->break_end);
-                $breakMinutes += $end->diffInMinutes($start);
+                $breakMinutes += \Carbon\Carbon::parse($break->break_end)->diffInMinutes(\Carbon\Carbon::parse($break->break_start));
                 }
                 }
 
@@ -67,7 +65,6 @@
                 $breakHours = floor($breakMinutes / 60);
                 $breakRemainMinutes = $breakMinutes % 60;
                 @endphp
-
                 <tr>
                     <td>{{ \Carbon\Carbon::parse($attendance->work_date)->format('m/d') }}
                         ({{ \Carbon\Carbon::parse($attendance->work_date)->locale('ja')->isoFormat('ddd') }})
@@ -88,7 +85,9 @@
                         —
                         @endif
                     </td>
-                    <td><a href="{{ route('attendance.detail', $attendance->id) }}">詳細</a></td>
+                    <td>
+                        <a href="{{ route('attendance.detail', $attendance->id) }}">詳細</a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

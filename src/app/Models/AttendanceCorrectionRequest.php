@@ -16,8 +16,10 @@ class AttendanceCorrectionRequest extends Model
         'user_id',
         'status',
         'remark',
+        'apply_clock_in',
+        'apply_clock_out',
     ];
-
+    
     // ユーザーとのリレーション
     public function user()
     {

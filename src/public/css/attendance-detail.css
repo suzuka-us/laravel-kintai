@@ -95,9 +95,14 @@ textarea.value {
     cursor: pointer;
 }
 
+
 .pending-text {
     display: block;
-    color: #e60000;
-    font-weight: bold;
+    /* ブロック表示にする */
     text-align: right;
+    /* 右端に寄せる */
+    margin-top: 8px;
+    /* カードとの間隔 */
+    color: red;
+    font-size: 16px;
 }

@@ -77,3 +77,4 @@ Route::get(
     '/stamp_correction_request/list',
     [StampCorrectionRequestController::class, 'requestList']
 )->name('stamp_correction_request.list');
+

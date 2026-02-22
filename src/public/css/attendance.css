@@ -1,105 +1,87 @@
-/* ページ背景と中央寄せ */
-.attendance-list {
-    background: #f5f5f5;
-    min-height: calc(100vh - 80px);
-    padding: 60px;
-}
-
-.attendance-list__inner {
-    width: 800px;
-    margin: 0 auto;
-}
-
-/* タイトル */
-.attendance-list__title {
-    margin-left: 1%;
-    margin-bottom: 16px;
-    font-size: 25px;
-    font-weight: bold;
-    position: relative;
-    padding-left: 14px;
-}
-
-.attendance-list__title::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 5px;
-    width: 4px;
-    height: 28px;
-    background-color: #333;
-    border-radius: 2px;
-}
-
-/* 月ナビゲーション */
-.month-nav-wrapper {
+.attendance {
+    min-height: 100vh;
     display: flex;
-    justify-content: space-between;
+    background: #f2f2f2;   
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 16px;
-}
-
-.month-nav__prev,
-.month-nav__next {
-    color: #333;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.month-nav__form {
-    flex: 1;
     text-align: center;
+    gap: 30px;
 }
 
-/* 月入力（ブラウザ標準カレンダーアイコンを左に表示、枠なし） */
-.month-nav__form input[type="month"] {
-    border: none;
-    /* 枠を消す */
-    background: none;
-    /* 背景も透明 */
+/* 勤務外 */
+.attendance__status {
     font-size: 16px;
-    cursor: pointer;
-    text-align: center;
-
-    -webkit-appearance: menulist-button;
-    /* Chrome/Safari: カレンダーアイコン表示 */
-    -moz-appearance: menulist-button;
-    /* Firefox: カレンダーアイコン表示 */
-    appearance: menulist-button;
+    /* 小さめ */
+    color: #555;
+    padding: 5px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-bottom: 10px;
 }
 
-.month-nav__form input[type="month"]:focus {
-    outline: none;
-    /* フォーカス時アウトラインを消す */
+/* 日付 */
+.attendance__date {
+    font-size: 22px;
+    margin-bottom: 5px;
 }
 
-/* テーブルカード */
-.attendance-card {
-    width: 100%;
-    background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    border-collapse: collapse;
-}
-
-/* ヘッダー（白背景・文字色統一） */
-.attendance-card th {
-    background: #fff;
-    color: #333;
+/* 時間 */
+.attendance__time {
+    font-size: 72px;
+    /* 大きめ */
     font-weight: bold;
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #e0e0e0;
+    /* 太文字 */
+    margin: 20px 0;
 }
 
-/* 行 */
-.attendance-card td {
-    padding: 12px;
-    border-bottom: 1px solid #e0e0e0;
+/* 出勤ボタン */
+.attendance__button {
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    background: #000; 
+    color: #fff;
+    border: 2px solid #000;
+    /* まるふち */
+    border-radius: 20px;
+    /* 丸み */
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-/* 詳細リンク */
-.attendance-card a {
-    color: #333;
-    text-decoration: none;
+.attendance__button:hover {
+    background: #000;
+    color: #fff;
 }
+
+.attendance__actions form {
+    width: auto;
+}
+
+.attendance__actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* ボタン間の余白 */
+}
+
+.attendance__actions form {
+    margin: 0;
+}
+
+.attendance__actions button {
+    width: 180px;
+}
+
+/* 休憩入ボタン用 */
+.attendance__button--break {
+   background: #fff;      /* 白 */
+    color: #000;           /* 黒文字 */
+    border: none;          /* 縁なし */
+    font-size: 20px;
+    border-radius: 20px;   /* 丸みだけ */
+    cursor: pointer;
+    transition: 0.2s;
+}
+

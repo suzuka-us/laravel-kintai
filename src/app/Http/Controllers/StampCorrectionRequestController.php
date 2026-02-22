@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\AttendanceCorrectionRequest;
+use App\Models\StampCorrectionRequest;
+
 
 class StampCorrectionRequestController extends Controller
 {
@@ -34,4 +36,6 @@ class StampCorrectionRequestController extends Controller
             compact('pendingRequests', 'approvedRequests')
         );
     }
+
+   
 }

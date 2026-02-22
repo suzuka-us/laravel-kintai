@@ -38,8 +38,7 @@ class AttendanceController extends Controller
     }
 
     /**
-     * 出勤
-     */
+     * 出勤 */
     public function clockIn()
     {
         Attendance::create([
@@ -48,8 +47,8 @@ class AttendanceController extends Controller
             'clock_in'  => now(),
             'status'    => '出勤中',
         ]);
-
-        return back();
+        
+         return back();
     }
 
     /**
@@ -161,6 +160,7 @@ class AttendanceController extends Controller
             ->where('user_id', auth()->id())
             ->firstOrFail();
 
+        
         // 承認待ちは修正不可
         if ($attendance->status === 'pending') {
             return back()->withErrors('承認待ちのため修正できません。');
@@ -168,6 +168,9 @@ class AttendanceController extends Controller
 
         // 出退勤・備考
         $attendance->update([
+            'clock_in'        => $request->clock_in,
+            'clock_out'       => $request->clock_out,
+            'remark'          => $request->remark,
             'apply_clock_in'  => $request->clock_in,
             'apply_clock_out' => $request->clock_out,
             'apply_remark'    => $request->remark,
