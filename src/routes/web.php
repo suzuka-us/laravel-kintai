@@ -84,3 +84,12 @@ Route::post(
     '/stamp_correction_request/store',
     [StampCorrectionRequestController::class, 'store']
 )->name('stamp_correction_request.store');
+
+
+// 勤怠一覧画面（管理者）
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::get(
+        'attendance/list',
+        [App\Http\Controllers\Admin\AdminAttendanceListController::class, 'index']
+    )->name('admin.attendance.list');
+});

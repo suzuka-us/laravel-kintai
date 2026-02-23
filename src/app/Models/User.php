@@ -42,4 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function attendances()
+    {
+        return $this->hasMany(\App\Models\Attendance::class, 'user_id');
+    }
 }

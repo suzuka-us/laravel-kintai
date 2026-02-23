@@ -35,22 +35,55 @@
                     <ul class="header-nav">
                         @if (Auth::check())
 
+                        @if(auth()->user()->is_admin)
+
+                        {{-- 勤怠一覧（管理者） --}}
+                        <li class="header-nav__item">
+                            <a class="header-nav__link" href="/admin/attendance/list">
+                                勤怠一覧
+                            </a>
+                        </li>
+
+                        {{-- スタッフ一覧 --}}
+                        <li class="header-nav__item">
+                            <a class="header-nav__link" href="#">
+                                スタッフ一覧
+                            </a>
+                        </li>
+
+                        {{-- 申請一覧 --}}
+                        <li class="header-nav__item">
+                            <a class="header-nav__link" href="#">
+                                申請一覧
+                            </a>
+                        </li>
+
+                        @else
+
                         {{-- 勤怠 --}}
                         <li class="header-nav__item">
-                            <a class="header-nav__link" href="/attendance">勤怠</a>
+                            <a class="header-nav__link" href="/attendance">
+                                勤怠
+                            </a>
                         </li>
 
                         {{-- 勤怠一覧 --}}
                         <li class="header-nav__item">
-                            <a class="header-nav__link" href="/attendance/list">勤怠一覧</a>
+                            <a class="header-nav__link" href="/attendance/list">
+                                勤怠一覧
+                            </a>
                         </li>
 
                         {{-- 申請 --}}
                         <li class="header-nav__item">
-                            <a class="header-nav__link" href="/stamp_correction_request/list">申請</a>
+                            <a class="header-nav__link" href="/stamp_correction_request/list">
+                                申請
+                            </a>
                         </li>
 
-                        {{-- ログアウト --}}
+                        @endif
+
+                        {{-- ログアウト（共通） --}}
                         <li class="header-nav__item">
                             <form action="/logout" method="post" class="header-nav__form">
                                 @csrf

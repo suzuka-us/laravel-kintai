@@ -1,0 +1,51 @@
+.admin-attendance {
+    padding: 40px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.admin-attendance h2 {
+    margin-bottom: 30px;
+}
+
+.admin-attendance__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.admin-attendance__date {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.admin-attendance table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+}
+
+.admin-attendance th,
+.admin-attendance td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.admin-attendance th {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+.admin-attendance__button {
+    padding: 8px 16px;
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.admin-attendance__button:hover {
+    background-color: #5a6268;
+}
