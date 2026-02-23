@@ -142,8 +142,7 @@ class AttendanceController extends Controller
             ->where('user_id', auth()->id())
             ->firstOrFail();
 
-        // ★追加①：承認待ちは編集不可
-        $isEditable = $attendance->status !== 'pending';
+        $isEditable = $attendance->approval_status !== 'pending';
 
         return view('attendance.detail', [
             'attendance' => $attendance,
@@ -174,9 +173,8 @@ class AttendanceController extends Controller
             'apply_clock_in'  => $request->clock_in,
             'apply_clock_out' => $request->clock_out,
             'apply_remark'    => $request->remark,
-            'status'          => 'pending',
+            'approval_status' => 'pending',
         ]);
-
         //  休憩
         foreach ($request->breaks as $index => $breakInput) {
 

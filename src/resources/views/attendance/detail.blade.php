@@ -24,9 +24,9 @@
 
         {{-- 入力欄＋修正ボタンを1つのフォームに統合 --}}
         @if($isEditable)
-        <form method="POST" action="{{ route('attendance.update', $attendance->id) }}">
+        <form method="POST" action="{{ route('stamp_correction_request.store') }}">
             @csrf
-            @method('PUT')
+            <input type="hidden" name="attendance_id" value="{{ $attendance->id }}">
 
             <div class="{{ session('updated') ? '' : 'attendance-detail__card' }}">
 
@@ -141,7 +141,11 @@
 
 
         </div>
+
+        @if(!$isEditable)
         <div class="pending-text">
             *承認待ちのため修正はできません。
         </div>
+        @endif
+
         @endsection

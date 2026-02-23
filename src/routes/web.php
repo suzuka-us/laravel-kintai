@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Admin\Auth\LoginController as AdminLoginController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\StampCorrectionRequestController;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -15,8 +16,9 @@ use App\Http\Controllers\StampCorrectionRequestController;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', [TestController::class, 'index']);
-
+Route::get('/', function () {
+    return Auth::check() ? redirect('/attendance') : redirect('/login');
+});
 // 一般ユーザー：登録
 Route::get('/register', [RegisterController::class, 'create']);
 Route::post('/register', [RegisterController::class, 'store']);
@@ -78,3 +80,7 @@ Route::get(
     [StampCorrectionRequestController::class, 'requestList']
 )->name('stamp_correction_request.list');
 
+Route::post(
+    '/stamp_correction_request/store',
+    [StampCorrectionRequestController::class, 'store']
+)->name('stamp_correction_request.store');

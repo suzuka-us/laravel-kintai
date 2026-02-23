@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -20,10 +21,12 @@ class LoginController extends Controller
             ]);
         }
 
-        // ★ これが超重要（これが無いとログイン状態にならない）
+        // （これが無いとログイン状態にならない）
         $request->session()->regenerate();
 
         // ★ 勤怠登録画面へ
         return redirect()->route('attendance.index');
     }
+
+    
 }

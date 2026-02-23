@@ -31,4 +31,5 @@ class AttendanceCorrectionRequest extends Model
     {
         return $this->belongsTo(Attendance::class);
     }
+    
 }
