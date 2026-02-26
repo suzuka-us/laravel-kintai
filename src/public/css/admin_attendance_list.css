@@ -1,51 +1,70 @@
+/* 
+   管理画面レイアウト */
 .admin-attendance {
     padding: 40px;
-    background-color: #f8f9fa;
+    background-color: #f3f4f6;
     min-height: 100vh;
 }
 
-.admin-attendance h2 {
-    margin-bottom: 30px;
-}
-
-.admin-attendance__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* タイトル */
+.admin-attendance .attendance-wrapper__title {
     margin-bottom: 20px;
-}
-
-.admin-attendance__date {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
 }
 
-.admin-attendance table {
-    width: 100%;
-    border-collapse: collapse;
+/* =========================
+   白カード（上下分離）
+========================= */
+.admin-attendance .attendance-wrapper__inner {
     background: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
 }
 
-.admin-attendance th,
-.admin-attendance td {
+/* 2つ目の白枠だけ余白 */
+.admin-attendance .attendance-wrapper__inner+.attendance-wrapper__inner {
+    margin-top: 40px;
+}
+
+/* =========================
+   日付ナビ
+========================= */
+.admin-attendance .month-nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-attendance .month-nav__prev,
+.admin-attendance .month-nav__next {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.admin-attendance .month-nav__prev:hover,
+.admin-attendance .month-nav__next:hover {
+    opacity: 0.7;
+}
+
+/* =========================
+   テーブル
+========================= */
+.admin-attendance .attendance-card {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-attendance .attendance-card th {
+    background-color: #ffffff;
+    color: #343a40;
+}
+
+.admin-attendance .attendance-card th,
+.admin-attendance .attendance-card td {
     border: 1px solid #ddd;
-    padding: 10px;
+    padding: 12px;
     text-align: center;
 }
 
-.admin-attendance th {
-    background-color: #343a40;
-    color: #ffffff;
-}
-
-.admin-attendance__button {
-    padding: 8px 16px;
-    background-color: #6c757d;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-
-.admin-attendance__button:hover {
-    background-color: #5a6268;
-}
