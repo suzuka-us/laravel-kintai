@@ -4,10 +4,10 @@
 ＃＃環境構築
 
 ## ① リポジトリ取得
-
-https://github.com/suzuka-us/laravel-kintai
-
+## ① リポジトリ取得
+git clone https://github.com/suzuka-us/laravel-kintai.git
 cd laravel-kintai
+
 
 ## ② Dockerビルド
 
